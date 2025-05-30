@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const navigate = useNavigate();
+
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
@@ -18,7 +18,7 @@ const Menu = () => {
     // Clear localStorage or any auth token
     localStorage.removeItem("token"); // Adjust key as needed
     // Redirect to login
-    navigate("/login");
+    window.location.href = "https://z-fnd.netlify.app/"
   };
 
   const menuClass = "menu";
