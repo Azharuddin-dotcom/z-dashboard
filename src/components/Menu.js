@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
@@ -14,12 +14,19 @@ const Menu = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
+  const handleLogout = () => {
+    // Clear localStorage or any auth token
+    localStorage.removeItem("token"); // Adjust key as needed
+    // Redirect to login
+    navigate("/login");
+  };
+
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
 
   return (
-    <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} alt='img' />
+    <div className="menu-container relative">
+      <img src="logo.png" style={{ width: "50px" }} alt="logo" />
       <div className="menus">
         <ul>
           <li>
@@ -90,9 +97,25 @@ const Menu = () => {
           </li>
         </ul>
         <hr />
-        <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
+        <div className="profile relative">
+          <div className="avatar" onClick={handleProfileClick}>
+            ZU
+          </div>
           <p className="username">USERID</p>
+
+          {isProfileDropdownOpen && (
+            <div
+              className="dropdown absolute bg-white border shadow-md right-0 mt-2 w-32 z-10"
+              style={{ borderRadius: "0.25rem" }}
+            >
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
